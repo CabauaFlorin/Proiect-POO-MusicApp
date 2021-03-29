@@ -13,19 +13,6 @@
   <property name="windowTitle">
    <string>CabManClient</string>
   </property>
-  <widget class="QPushButton" name="playButton">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>330</y>
-     <width>91</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Play</string>
-   </property>
-  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
