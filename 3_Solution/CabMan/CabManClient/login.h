@@ -12,4 +12,6 @@ public:
 
 private:
     Ui::CabManClientClass ui;
+private slots:
+    void on_login_button_clicked();
 };
