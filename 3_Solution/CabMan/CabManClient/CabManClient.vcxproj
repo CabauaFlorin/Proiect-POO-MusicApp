@@ -110,9 +110,10 @@
     <QtRcc Include="cabmanclient.qrc" />
     <QtUic Include="login.ui" />
     <QtMoc Include="login.h" />
-    <ClCompile Include="CabMan_Client.cpp" />
+    <ClCompile Include="ClientBackend.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClInclude Include="ClientBackend.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClCompile Include="stdafx.cpp">

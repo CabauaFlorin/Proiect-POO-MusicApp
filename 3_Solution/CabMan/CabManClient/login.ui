@@ -64,7 +64,7 @@
     <item>
      <widget class="QPushButton" name="login_button">
       <property name="text">
-       <string>Login</string>
+       <string>Ping Server</string>
       </property>
      </widget>
     </item>
