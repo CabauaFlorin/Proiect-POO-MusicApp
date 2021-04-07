@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>520</width>
+    <height>168</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>520</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="play_toolbar"/>
+    <addaction name="pause_toolbar"/>
+    <addaction name="repeat_toolbar"/>
+    <addaction name="aleatory_toolbar"/>
+    <addaction name="next_toolbar"/>
+    <addaction name="previous_toolbar"/>
+    <addaction name="separator"/>
+    <addaction name="exit_toolbar"/>
+   </widget>
+   <addaction name="menuMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="play_toolbar">
+   <property name="icon">
+    <iconset resource="cabmanclient.qrc">
+     <normaloff>:/icons/icons/play.png</normaloff>:/icons/icons/play.png</iconset>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+  </action>
+  <action name="pause_toolbar">
+   <property name="icon">
+    <iconset resource="cabmanclient.qrc">
+     <normaloff>:/icons/icons/pause.png</normaloff>:/icons/icons/pause.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="exit_toolbar">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="repeat_toolbar">
+   <property name="icon">
+    <iconset resource="cabmanclient.qrc">
+     <normaloff>:/icons/icons/repeat.png</normaloff>:/icons/icons/repeat.png</iconset>
+   </property>
+   <property name="text">
+    <string>Repeat</string>
+   </property>
+  </action>
+  <action name="aleatory_toolbar">
+   <property name="icon">
+    <iconset resource="cabmanclient.qrc">
+     <normaloff>:/icons/icons/aleatory.png</normaloff>:/icons/icons/aleatory.png</iconset>
+   </property>
+   <property name="text">
+    <string>Aleatory</string>
+   </property>
+  </action>
+  <action name="next_toolbar">
+   <property name="icon">
+    <iconset resource="cabmanclient.qrc">
+     <normaloff>:/icons/icons/forward.png</normaloff>:/icons/icons/forward.png</iconset>
+   </property>
+   <property name="text">
+    <string>Next</string>
+   </property>
+  </action>
+  <action name="previous_toolbar">
+   <property name="icon">
+    <iconset resource="cabmanclient.qrc">
+     <normaloff>:/icons/icons/rewind.png</normaloff>:/icons/icons/rewind.png</iconset>
+   </property>
+   <property name="text">
+    <string>Previous</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="cabmanclient.qrc"/>
+ </resources>
+ <connections/>
+</ui>

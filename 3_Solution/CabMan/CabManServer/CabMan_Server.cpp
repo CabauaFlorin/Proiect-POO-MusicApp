@@ -55,8 +55,8 @@ protected:
 			olc::net::message<CustomMsgTypes> msg;
 			msg.header.id = CustomMsgTypes::ServerMessage;
 			msg << client->GetID();
+			//std::cout << msg;
 			MessageAllClients(msg, client);
-
 		}
 		break;
 		}

@@ -108,18 +108,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="cabmanclient.qrc" />
+    <QtUic Include="inregistrare.ui" />
     <QtUic Include="login.ui" />
     <QtMoc Include="login.h" />
     <ClCompile Include="ClientBackend.cpp" />
+    <ClCompile Include="inregistrare.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClInclude Include="ClientBackend.h" />
+    <QtMoc Include="main_window.h" />
+    <QtMoc Include="inregistrare.h" />
     <ClInclude Include="resource.h" />
+    <QtMoc Include="start.h" />
     <ClInclude Include="stdafx.h" />
+    <ClCompile Include="main_window.cpp" />
+    <ClCompile Include="start.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <QtUic Include="main_window.ui" />
+    <QtUic Include="start.ui" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CabManClient.rc" />

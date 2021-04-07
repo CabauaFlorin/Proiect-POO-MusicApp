@@ -20,6 +20,6 @@ public:
 	static ClientBackend& getInstance();
 	static void destroyInstance();
 	void PingServer();
-
+	void MessageConnect();
 };
 

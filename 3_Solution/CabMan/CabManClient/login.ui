@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CabManClientClass</class>
- <widget class="QWidget" name="CabManClientClass">
+ <class>login_window</class>
+ <widget class="QWidget" name="login_window">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
-    <height>334</height>
+    <width>219</width>
+    <height>210</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>CabManClient</string>
+   <string>LoginApp</string>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>60</y>
+     <x>0</x>
+     <y>0</y>
      <width>216</width>
      <height>211</height>
     </rect>
@@ -52,7 +52,7 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Password:</string>
+         <string>Parola:</string>
         </property>
        </widget>
       </item>
@@ -62,7 +62,28 @@
      </layout>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Ping:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ping_edit"/>
+      </item>
+     </layout>
+    </item>
+    <item>
      <widget class="QPushButton" name="login_button">
+      <property name="text">
+       <string>Login</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="ping_button">
       <property name="text">
        <string>Ping Server</string>
       </property>
