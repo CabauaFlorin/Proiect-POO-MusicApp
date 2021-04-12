@@ -4,6 +4,8 @@
 #include "ui_inregistrare.h"
 #include "login.h"
 
+
+class start;
 class inregistrare : public QWidget
 {
 	Q_OBJECT
@@ -14,7 +16,7 @@ public:
 
 private:
 	Ui::inregistrare ui;
-	//start* start_window;
+	start* start_window;
 	CabManClient* login_window;
 
 private slots:

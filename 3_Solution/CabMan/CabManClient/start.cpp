@@ -1,4 +1,5 @@
 #include "start.h"
+#include "inregistrare.h"
 
 start::start(QWidget *parent)
 	: QWidget(parent)

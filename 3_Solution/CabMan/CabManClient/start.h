@@ -3,8 +3,9 @@
 #include <QWidget>
 #include "ui_start.h"
 #include "login.h"
-#include "inregistrare.h"
 
+
+class inregistrare;
 class start : public QWidget
 {
 	Q_OBJECT

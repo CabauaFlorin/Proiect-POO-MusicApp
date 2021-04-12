@@ -1,4 +1,5 @@
 #include "inregistrare.h"
+#include "start.h"
 
 inregistrare::inregistrare(QWidget *parent)
 	: QWidget(parent)
@@ -9,6 +10,8 @@ inregistrare::inregistrare(QWidget *parent)
 void inregistrare::on_back_button_clicked()
 {
 	hide();
+	start_window = new start;
+	start_window->show();
 }
 
 void inregistrare::on_register_button_clicked()
