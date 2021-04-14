@@ -11,7 +11,7 @@ ClientBackend& ClientBackend::getInstance()
 		instance = new ClientBackend();
 		if (!instance->IsConnected())
 		{
-			instance->Connect("8.tcp.ngrok.io", 16791);
+			instance->Connect("2.tcp.ngrok.io", 19494);
 		}
 	}
 	return *instance;
@@ -44,4 +44,10 @@ void ClientBackend::MessageConnect()
 	msg.header.id = CustomMsgTypes::MessageAll;
 	msg << "Clientul s-a autentificat cu succes!\n";
 	Send(msg);
+}
+
+void ClientBackend::Register(QString mail, QString username, QString parola)
+{
+	//SQLManager* temp = SQLManager::getInstance();
+	SQLManager::getInstance()->insert_data(mail.toStdString(), username.toStdString(), parola.toStdString());
 }

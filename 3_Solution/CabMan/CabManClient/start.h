@@ -1,9 +1,7 @@
 #pragma once
-
 #include <QWidget>
 #include "ui_start.h"
 #include "login.h"
-
 
 class inregistrare;
 class start : public QWidget

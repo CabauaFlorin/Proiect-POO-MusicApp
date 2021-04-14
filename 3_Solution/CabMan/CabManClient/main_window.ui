@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CabMan Music</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="cabmanclient.qrc">
+    <normaloff>:/icons/icons/music.png</normaloff>:/icons/icons/music.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -96,6 +100,11 @@
    </property>
    <property name="text">
     <string>Previous</string>
+   </property>
+  </action>
+  <action name="show_playlist_button_toolbar">
+   <property name="text">
+    <string>Show Playlist</string>
    </property>
   </action>
  </widget>

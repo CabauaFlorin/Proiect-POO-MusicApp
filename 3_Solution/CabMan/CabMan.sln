@@ -12,6 +12,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CabManCommon", "CabManCommo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CabManClient", "CabManClient\CabManClient.vcxproj", "{F131B9C7-B75E-42FF-970A-1ACCDBBD918F}"
 	ProjectSection(ProjectDependencies) = postProject
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C} = {11A31326-93CC-456A-BE83-1DE2180E2E5C}
 		{C05E6391-B44E-43E4-9FE9-69B1D85850F6} = {C05E6391-B44E-43E4-9FE9-69B1D85850F6}
 	EndProjectSection
 EndProject
@@ -19,6 +20,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CabManClientConsole", "CabM
 	ProjectSection(ProjectDependencies) = postProject
 		{C05E6391-B44E-43E4-9FE9-69B1D85850F6} = {C05E6391-B44E-43E4-9FE9-69B1D85850F6}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CabMan SQL DB", "CabMan SQL DB\CabMan SQL DB.vcxproj", "{11A31326-93CC-456A-BE83-1DE2180E2E5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +61,14 @@ Global
 		{F98B1D2C-1E43-40F0-B9A5-E1533BA33F06}.Release|x64.Build.0 = Release|x64
 		{F98B1D2C-1E43-40F0-B9A5-E1533BA33F06}.Release|x86.ActiveCfg = Release|Win32
 		{F98B1D2C-1E43-40F0-B9A5-E1533BA33F06}.Release|x86.Build.0 = Release|Win32
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Debug|x64.ActiveCfg = Debug|x64
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Debug|x64.Build.0 = Debug|x64
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Debug|x86.ActiveCfg = Debug|Win32
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Debug|x86.Build.0 = Debug|Win32
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Release|x64.ActiveCfg = Release|x64
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Release|x64.Build.0 = Release|x64
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Release|x86.ActiveCfg = Release|Win32
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,5 +6,6 @@
         <file>icons/play.png</file>
         <file>icons/repeat.png</file>
         <file>icons/rewind.png</file>
+        <file>icons/music.png</file>
     </qresource>
 </RCC>

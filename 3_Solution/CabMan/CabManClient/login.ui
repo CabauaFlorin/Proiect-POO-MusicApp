@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>LoginApp</string>
+   <string>Login</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="cabmanclient.qrc">
+    <normaloff>:/icons/icons/music.png</normaloff>:/icons/icons/music.png</iconset>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
@@ -57,7 +61,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="parola_edit"/>
+       <widget class="QLineEdit" name="parola_edit">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

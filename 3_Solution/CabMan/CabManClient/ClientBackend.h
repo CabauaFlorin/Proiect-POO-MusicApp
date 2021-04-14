@@ -1,5 +1,7 @@
 #pragma once
 #include <olc_net.h>
+#include <qstring.h>
+#include <SQLManager.h>
 
 enum class CustomMsgTypes : uint32_t
 {
@@ -22,5 +24,5 @@ public:
 	static void destroyInstance();
 	void PingServer();
 	void MessageConnect();
+	void Register(QString mail, QString username, QString parola);
 };
-

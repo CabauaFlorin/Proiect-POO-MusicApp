@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>start</string>
+   <string>CabMan Music</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../../../../OneDrive/Desktop/music.png</normaloff>../../../../../../../OneDrive/Desktop/music.png</iconset>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">

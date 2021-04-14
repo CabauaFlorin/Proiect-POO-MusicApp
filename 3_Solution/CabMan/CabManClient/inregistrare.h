@@ -4,7 +4,6 @@
 #include "ui_inregistrare.h"
 #include "login.h"
 
-
 class start;
 class inregistrare : public QWidget
 {
