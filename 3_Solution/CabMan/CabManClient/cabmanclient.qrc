@@ -1,11 +1,12 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file>icons/aleatory.png</file>
-        <file>icons/forward.png</file>
-        <file>icons/pause.png</file>
-        <file>icons/play.png</file>
-        <file>icons/repeat.png</file>
-        <file>icons/rewind.png</file>
-        <file>icons/music.png</file>
-    </qresource>
+  <qresource prefix="/icons">
+    <file>icons/volume.png</file>
+    <file>icons/aleatory.png</file>
+    <file>icons/forward.png</file>
+    <file>icons/pause.png</file>
+    <file>icons/play.png</file>
+    <file>icons/repeat.png</file>
+    <file>icons/rewind.png</file>
+    <file>icons/music.png</file>
+  </qresource>
 </RCC>

@@ -42,7 +42,7 @@ string Query::makeRangeQuery(const wchar_t* query, int column_start, int column_
 
     switch (SQLDriverConnect(sqlConnHandle,
         NULL,
-        (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=2.tcp.ngrok.io, 1433;DATABASE=CabManDB;Trusted=true;", //Precizeaza baza de date / database-ul
+        (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=localhost, 1433;DATABASE=CabManDB;Trusted=true;", //Precizeaza baza de date / database-ul
         SQL_NTS,
         retconstring,
         1024,
@@ -129,7 +129,7 @@ string Query::makeCustomQuery(const wchar_t* query, int column)
 
     switch (SQLDriverConnect(sqlConnHandle,
         NULL,
-        (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=2.tcp.ngrok.io, 1433;DATABASE=CabManDB;Trusted=true;", //Precizeaza baza de date / database-ul
+        (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=localhost, 1433;DATABASE=CabManDB;Trusted=true;", //Precizeaza baza de date / database-ul
         SQL_NTS,
         retconstring,
         1024,
@@ -209,7 +209,7 @@ void Query::insertNewClient(wstring queryBuffer)
     cout << "\n";
     switch (SQLDriverConnect(sqlConnHandle,
         NULL,
-        (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=2.tcp.ngrok.io, 1433;DATABASE=CabManDB;Trusted=true;",
+        (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=localhost, 1433;DATABASE=CabManDB;Trusted=true;",
         SQL_NTS,
         retconstring,
         1024,

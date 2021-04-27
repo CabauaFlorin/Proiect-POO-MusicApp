@@ -2,6 +2,7 @@
 #include "start.h"
 #include <qmessagebox.h>
 #include "ClientBackend.h"
+#include <SQLManager.h>
 
 inregistrare::inregistrare(QWidget *parent)
 	: QWidget(parent)
@@ -22,12 +23,29 @@ void inregistrare::on_register_button_clicked()
 	QString mail = ui.mail_edit->text();
 	QString username= ui.username_edit->text();
 	QString parola = ui.parola_edit->text();
-	if (!mail.isEmpty() && !username.isEmpty() && !parola.isEmpty() && parola.size()>=6)
+
+	if (!mail.isEmpty() && !username.isEmpty() && !parola.isEmpty() && parola.size() >= 6)
 	{
+		cb.Incoming().clear();
 		cb.Register(mail, username, parola);
-		hide();
-		login_window = new CabManClient;
-		login_window->show();
+
+		while (cb.Incoming().empty())
+		{
+			// wait
+		}
+		
+		if (!cb.Incoming().empty())
+		{
+			auto msg = cb.Incoming().pop_front().msg;
+			if (msg.header.id == CustomMsgTypes::ServerMessage)
+			{
+				//SQLManager::getInstance()->insert_data(mail.toStdString(), username.toStdString(), parola.toStdString());
+				hide();
+				login_window = new CabManClient;
+				login_window->show();
+			}
+			
+		}
 	}
 	else
 	{

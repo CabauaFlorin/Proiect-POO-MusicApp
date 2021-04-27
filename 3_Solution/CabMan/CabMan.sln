@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CabManServer", "CabManServer\CabManServer.vcxproj", "{A42406FE-AFAA-4BF9-8CD9-0864C06F4283}"
 	ProjectSection(ProjectDependencies) = postProject
+		{11A31326-93CC-456A-BE83-1DE2180E2E5C} = {11A31326-93CC-456A-BE83-1DE2180E2E5C}
 		{C05E6391-B44E-43E4-9FE9-69B1D85850F6} = {C05E6391-B44E-43E4-9FE9-69B1D85850F6}
 	EndProjectSection
 EndProject

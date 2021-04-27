@@ -1,5 +1,6 @@
 #include <iostream>
 #include <olc_net.h>
+#include <SQLManager.h>
 
 enum class CustomMsgTypes : uint32_t
 {
@@ -59,6 +60,13 @@ protected:
 			MessageAllClients(msg, client);
 		}
 		break;
+		
+		case CustomMsgTypes::ServerMessage:
+		{
+			std::cout << "[" << client->GetID() << "]: Server Message\n";
+			//string mesaj = std::to_string(msg.size());
+			//SQLManager::getInstance()->insertNewClient(mesaj);
+		}
 		}
 	}
 };

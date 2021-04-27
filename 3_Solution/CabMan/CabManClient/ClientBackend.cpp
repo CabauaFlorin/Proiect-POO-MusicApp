@@ -11,7 +11,7 @@ ClientBackend& ClientBackend::getInstance()
 		instance = new ClientBackend();
 		if (!instance->IsConnected())
 		{
-			instance->Connect("2.tcp.ngrok.io", 19494);
+			instance->Connect("2.tcp.ngrok.io", 13593);
 		}
 	}
 	return *instance;
@@ -48,6 +48,12 @@ void ClientBackend::MessageConnect()
 
 void ClientBackend::Register(QString mail, QString username, QString parola)
 {
-	//SQLManager* temp = SQLManager::getInstance();
-	SQLManager::getInstance()->insert_data(mail.toStdString(), username.toStdString(), parola.toStdString());
+	//SQLManager::getInstance()->insert_data(mail.toStdString(), username.toStdString(), parola.toStdString());
+	olc::net::message<CustomMsgTypes> msg;
+	msg.header.id = CustomMsgTypes::ServerMessage;
+	string continut = mail.toStdString();
+	continut += username.toStdString();
+	continut += parola.toStdString();
+	msg << continut;
+	Send(msg);
 }

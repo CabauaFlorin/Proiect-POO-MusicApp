@@ -18,8 +18,5 @@
     <ClCompile Include="CabMan_Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConnectToSQLServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
