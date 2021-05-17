@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>160</height>
+    <width>532</width>
+    <height>185</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>150</x>
      <y>0</y>
      <width>231</width>
      <height>51</height>
@@ -41,7 +41,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>50</y>
      <width>491</width>
      <height>31</height>
@@ -54,21 +54,26 @@
     </font>
    </property>
    <property name="text">
-    <string>Vă rugăm să selectați una dintre următoarele opțiuni:</string>
+    <string>Vă rugăm să alegeți una dintre următoarele opțiuni:</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>90</y>
-     <width>95</width>
-     <height>65</height>
+     <x>200</x>
+     <y>100</y>
+     <width>106</width>
+     <height>69</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QPushButton" name="register_button">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Inregistrare</string>
       </property>
@@ -76,6 +81,11 @@
     </item>
     <item>
      <widget class="QPushButton" name="log_in_button">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Autentificare</string>
       </property>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>199</width>
-    <height>256</height>
+    <width>308</width>
+    <height>339</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>198</width>
-     <height>259</height>
+     <width>311</width>
+     <height>341</height>
     </rect>
    </property>
    <property name="title">
@@ -32,6 +32,11 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Introduceti username-ul si parola:</string>
       </property>
@@ -39,6 +44,11 @@
     </item>
     <item>
      <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Username:</string>
       </property>
@@ -49,6 +59,11 @@
     </item>
     <item>
      <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Parola:</string>
       </property>
@@ -63,6 +78,11 @@
     </item>
     <item>
      <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Ping:</string>
       </property>
@@ -73,6 +93,11 @@
     </item>
     <item>
      <widget class="QPushButton" name="login_button">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Login</string>
       </property>
@@ -80,6 +105,11 @@
     </item>
     <item>
      <widget class="QPushButton" name="ping_button">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Ping Server</string>
       </property>

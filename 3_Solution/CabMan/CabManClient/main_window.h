@@ -23,14 +23,14 @@ private:
 	Ui::MainWindow ui;
 	QMediaPlayer* player;
 	QMediaPlaylist* playlist;
-	QProgressBar* bar = new QProgressBar(this);
+	QProgressBar* bar;
 	QStringListModel* model = new QStringListModel(this);
 	QFile songs_location;
 
 	bool muted = false;
 	void openFile();
 	void write_song_location(QString path);
-	void LineClicked(QModelIndex);
+	void check_repeat();
 
 private slots:
 	void on_volume_slider_sliderMoved(int position);
@@ -44,4 +44,12 @@ private slots:
 	void on_durationChanged(qint64 position);
 	void on_add_file_button_triggered();
 	void on_exit_toolbar_triggered();
+	void on_listWidget_itemClicked(QListWidgetItem* item);
+	void on_next_button_clicked();
+	void on_previous_button_clicked();
+	void on_next_toolbar_triggered();
+	void on_previous_toolbar_triggered();
+	void on_repeat_toolbar_triggered();
+
+	void stopped();
 };

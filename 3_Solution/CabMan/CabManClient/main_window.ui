@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>527</width>
-    <height>317</height>
+    <height>328</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,20 +41,7 @@
      </rect>
     </property>
     <property name="text">
-     <string> </string>
-    </property>
-   </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>75</y>
-      <width>506</width>
-      <height>185</height>
-     </rect>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
+     <string/>
     </property>
    </widget>
    <widget class="QSlider" name="progress_slider">
@@ -65,6 +52,9 @@
       <width>511</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>100</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -160,6 +150,16 @@
      </item>
     </layout>
    </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>501</width>
+      <height>201</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -211,6 +211,9 @@
    </property>
   </action>
   <action name="repeat_toolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="cabmanclient.qrc">
      <normaloff>:/icons/icons/repeat.png</normaloff>:/icons/icons/repeat.png</iconset>
@@ -220,6 +223,12 @@
    </property>
   </action>
   <action name="aleatory_toolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="cabmanclient.qrc">
      <normaloff>:/icons/icons/aleatory.png</normaloff>:/icons/icons/aleatory.png</iconset>
@@ -252,6 +261,10 @@
    </property>
   </action>
   <action name="add_file_button">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/add.png</normaloff>icons/add.png</iconset>
+   </property>
    <property name="text">
     <string>Add file</string>
    </property>

@@ -2,6 +2,8 @@
 #include "login.h"
 #include "stdafx.h"
 #include <qmessagebox.h>
+#include <qtimer.h>
+
 
 CabManClient::CabManClient(QWidget *parent)
     : QWidget(parent)
@@ -23,7 +25,7 @@ void CabManClient::on_ping_button_clicked()
     if (!cb.Incoming().empty())
     {
         auto msg = cb.Incoming().pop_front().msg;
-        if (msg.header.id == CustomMsgTypes::ServerPing)
+        if (msg.header.id == olc::net::CustomMsgTypes::ServerPing)
         {
             std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
             std::chrono::system_clock::time_point timeThen;
@@ -37,17 +39,50 @@ void CabManClient::on_ping_button_clicked()
 
 void CabManClient::on_login_button_clicked()
 {
+    QMessageBox* msgBox = new QMessageBox;
     QString username = ui.username_edit->text();
     QString password = ui.parola_edit->text();
-    if (username == "test" && password == "test")
+
+    if (username == "" || password == "")
     {
-        QMessageBox::information(this, "Login", "V-ati autentificat cu succes!");
-        hide();
-        main_menu = new main_window;
-        main_menu->show();
+        msgBox->setText("Please fill all the boxes!");
+        msgBox->show();
+        QTimer::singleShot(2500, msgBox, SLOT(close()));
     }
-    else
+
+    ClientBackend& cb = ClientBackend::getInstance();
+    cb.Incoming().clear();
+    cb.LoginRequest(username, password);
+    while (cb.Incoming().empty())
     {
-        QMessageBox::warning(this, "Login", "Username-ul si parola sunt incorecte!");
+        // do wait for response;
+        if (!cb.IsConnected())
+        {
+            msgBox->setText("Server down! Restart the app.");
+            msgBox->show();
+            QTimer::singleShot(2500, msgBox, SLOT(close()));
+        }
+    }
+    // server has responded.
+    if (!cb.Incoming().empty())
+    {
+        auto msg = cb.Incoming().pop_front().msg;
+        if (msg.header.id == olc::net::CustomMsgTypes::ServerLoginResponse)
+        {
+            char responseFromServer[100];
+            msg >> responseFromServer;
+            if (strcmp(responseFromServer, "SuccessLogin")==0)
+            {
+                // permit access to app!
+                QMessageBox::information(this, "Login", "V-ati autentificat cu succes!");
+                hide();
+                main_menu = new main_window;
+                main_menu->show();
+            }
+            else
+            {
+                QMessageBox::warning(this, "Login", "Username-ul si parola sunt incorecte!");
+            }
+        }
     }
 }

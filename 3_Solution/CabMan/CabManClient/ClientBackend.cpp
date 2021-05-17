@@ -11,7 +11,7 @@ ClientBackend& ClientBackend::getInstance()
 		instance = new ClientBackend();
 		if (!instance->IsConnected())
 		{
-			instance->Connect("2.tcp.ngrok.io", 13593);
+			instance->Connect("6.tcp.ngrok.io", 11738);
 		}
 	}
 	return *instance;
@@ -28,8 +28,8 @@ void ClientBackend::destroyInstance()
 
 void ClientBackend::PingServer()
 {
-	olc::net::message<CustomMsgTypes> msg;
-	msg.header.id = CustomMsgTypes::ServerPing;
+	olc::net::message<olc::net::CustomMsgTypes> msg;
+	msg.header.id = olc::net::CustomMsgTypes::ServerPing;
 
 	// Caution with this...
 	std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
@@ -40,20 +40,36 @@ void ClientBackend::PingServer()
 
 void ClientBackend::MessageConnect()
 {
-	olc::net::message<CustomMsgTypes> msg;
-	msg.header.id = CustomMsgTypes::MessageAll;
+	olc::net::message<olc::net::CustomMsgTypes> msg;
+	msg.header.id = olc::net::CustomMsgTypes::MessageAll;
 	msg << "Clientul s-a autentificat cu succes!\n";
 	Send(msg);
 }
 
-void ClientBackend::Register(QString mail, QString username, QString parola)
+void ClientBackend::RegisterRequest(QString mail, QString username, QString parola)
 {
-	//SQLManager::getInstance()->insert_data(mail.toStdString(), username.toStdString(), parola.toStdString());
-	olc::net::message<CustomMsgTypes> msg;
-	msg.header.id = CustomMsgTypes::ServerMessage;
-	string continut = mail.toStdString();
-	continut += username.toStdString();
-	continut += parola.toStdString();
-	msg << continut;
+	olc::net::message<olc::net::CustomMsgTypes> msg;
+	msg.header.id = olc::net::CustomMsgTypes::RegisterRequest;
+	char mailToSend[256];
+	char usernameToSend[256];
+	char passwordToSend[256];
+	strcpy(mailToSend, mail.toStdString().c_str());
+	strcpy(usernameToSend, username.toStdString().c_str());
+	strcpy(passwordToSend, parola.toStdString().c_str());
+
+	msg << mailToSend << usernameToSend << passwordToSend;
+	Send(msg);
+}
+
+void ClientBackend::LoginRequest(const QString& username, const QString& password)
+{
+	olc::net::message<olc::net::CustomMsgTypes> msg;
+	msg.header.id = olc::net::CustomMsgTypes::LoginRequest;
+	char usernameToSend[256];
+	char passwordToSend[256];
+	strcpy(usernameToSend, username.toStdString().c_str());
+	strcpy(passwordToSend, password.toStdString().c_str());
+
+	msg << usernameToSend << passwordToSend;
 	Send(msg);
 }

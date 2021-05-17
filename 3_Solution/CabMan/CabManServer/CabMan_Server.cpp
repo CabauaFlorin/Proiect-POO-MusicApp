@@ -1,45 +1,36 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <olc_net.h>
-#include <SQLManager.h>
 
-enum class CustomMsgTypes : uint32_t
-{
-	ServerAccept,
-	ServerDeny,
-	ServerPing,
-	MessageAll,
-	ServerMessage,
-};
-
-class Server_app : public olc::net::server_interface<CustomMsgTypes>
+class Server_app : public olc::net::server_interface<olc::net::CustomMsgTypes>
 {
 public:
-	Server_app(uint16_t nPort) : olc::net::server_interface<CustomMsgTypes>(nPort)
+	Server_app(uint16_t nPort) : olc::net::server_interface<olc::net::CustomMsgTypes>(nPort)
 	{
 
 	}
 
 protected:
-	virtual bool OnClientConnect(std::shared_ptr<olc::net::connection<CustomMsgTypes>> client)
+	virtual bool OnClientConnect(std::shared_ptr<olc::net::connection<olc::net::CustomMsgTypes>> client)
 	{
-		olc::net::message<CustomMsgTypes> msg;
-		msg.header.id = CustomMsgTypes::ServerAccept;
+		olc::net::message<olc::net::CustomMsgTypes> msg;
+		msg.header.id = olc::net::CustomMsgTypes::ServerAccept;
 		client->Send(msg);
 		return true;
 	}
 
 	// Called when a client appears to have disconnected
-	virtual void OnClientDisconnect(std::shared_ptr<olc::net::connection<CustomMsgTypes>> client)
+	virtual void OnClientDisconnect(std::shared_ptr<olc::net::connection<olc::net::CustomMsgTypes>> client)
 	{
 		std::cout << "Removing client [" << client->GetID() << "]\n";
 	}
 
 	// Called when a message arrives
-	virtual void OnMessage(std::shared_ptr<olc::net::connection<CustomMsgTypes>> client, olc::net::message<CustomMsgTypes>& msg)
+	virtual void OnMessage(std::shared_ptr<olc::net::connection<olc::net::CustomMsgTypes>> client, olc::net::message<olc::net::CustomMsgTypes>& msg)
 	{
 		switch (msg.header.id)
 		{
-		case CustomMsgTypes::ServerPing:
+		case olc::net::CustomMsgTypes::ServerPing:
 		{
 			std::cout << "[" << client->GetID() << "]: Server Ping\n";
 
@@ -48,25 +39,73 @@ protected:
 		}
 		break;
 
-		case CustomMsgTypes::MessageAll:
+		case olc::net::CustomMsgTypes::MessageAll:
 		{
 			std::cout << "[" << client->GetID() << "]: Message All\n";
 
 			// Construct a new message and send it to all clients
-			olc::net::message<CustomMsgTypes> msg;
-			msg.header.id = CustomMsgTypes::ServerMessage;
+			olc::net::message<olc::net::CustomMsgTypes> msg;
+			msg.header.id = olc::net::CustomMsgTypes::ServerMessage;
 			msg << client->GetID();
 			//std::cout << msg;
 			MessageAllClients(msg, client);
 		}
 		break;
 		
-		case CustomMsgTypes::ServerMessage:
+		case olc::net::CustomMsgTypes::ServerMessage:
 		{
 			std::cout << "[" << client->GetID() << "]: Server Message\n";
-			//string mesaj = std::to_string(msg.size());
-			//SQLManager::getInstance()->insertNewClient(mesaj);
 		}
+		break;
+
+
+		case olc::net::CustomMsgTypes::LoginRequest:
+		{
+			std::cout << "[" << client->GetID() << "]: User Login Request\n";
+			char username[256];
+			char password[256];
+
+			msg >> password >> username;
+			char responseFromLogin[100];
+			if (OnLoginRequest(username, password))
+			{
+				strcpy(responseFromLogin, "SuccessLogin");
+			}
+			else
+			{
+				strcpy(responseFromLogin, "FailLogin");
+			}
+
+			msg.header.id = olc::net::CustomMsgTypes::ServerLoginResponse;
+			msg << responseFromLogin;
+			client->Send(msg);
+		}
+		break;
+
+		case olc::net::CustomMsgTypes::RegisterRequest:
+		{
+			std::cout << "[" << client->GetID() << "]: User Register Request\n";
+			char mail[256];
+			char username[256];
+			char password[256];
+
+			msg >> password >> username >> mail;
+			char ResponseFromRegister[100];
+			int register_code = OnRegisterRequest(mail, username, password);
+			if (register_code == -1)
+			{
+				strcpy(ResponseFromRegister, "UserAlready");
+			}
+			if (register_code == 0)
+			{
+				strcpy(ResponseFromRegister, "SuccessRegister");
+			}
+
+			msg.header.id = olc::net::CustomMsgTypes::ServerRegisterResponse;
+			msg << ResponseFromRegister;
+			client->Send(msg);
+		}
+		break;
 		}
 	}
 };

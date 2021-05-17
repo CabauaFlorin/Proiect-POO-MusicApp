@@ -3,19 +3,20 @@
 main_window::main_window(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
+    bar = new QProgressBar(this);
     ui.statusbar->addPermanentWidget(bar);
     player = new QMediaPlayer(this);
     playlist = new QMediaPlaylist(player);
+    
     connect(player, &QMediaPlayer::positionChanged, this, &main_window::on_positionChanged);
     connect(player, &QMediaPlayer::durationChanged, this, &main_window::on_durationChanged);
     connect(player, &QMediaPlayer::durationChanged, bar, &QProgressBar::setMaximum);
     connect(player, &QMediaPlayer::positionChanged, bar, &QProgressBar::setValue);
-    connect(model, SIGNAL(clicked), this, SLOT(LineClicked(QModelIndex)));
+    connect(player, &QMediaPlayer::stateChanged, this, &main_window::stopped);
 
     songs_location.setFileName("songs_location.txt");
     songs_location.open(QIODevice::ReadOnly);
 
-    //QStringListModel* model = new QStringListModel(this);
     QStringList list;
     QTextStream in(&songs_location);
     while (!in.atEnd())
@@ -24,12 +25,40 @@ main_window::main_window(QWidget *parent) : QMainWindow(parent)
         QFileInfo info = line;
         list << info.baseName();
         model->setStringList(list);
-        ui.listView->setModel(model);
+        ui.listWidget->addItem(info.baseName());
     }
     songs_location.close();
 }
 
-int pozitia = 0;
+void main_window::stopped()
+{
+    if (player->state() == QMediaPlayer::State::StoppedState)
+    {
+        QListWidgetItem* item = ui.listWidget->currentItem();
+     
+
+        songs_location.setFileName("songs_location.txt");
+        songs_location.open(QIODevice::ReadOnly);
+        QTextStream in(&songs_location);
+        int linie = 0;
+        while (!in.atEnd())
+        {
+            QString line = in.readLine();
+            linie++;
+            if (line.contains(item->text(), Qt::CaseSensitive))
+            {
+                break;
+            }
+        }
+       
+        QString path;
+        path = in.readLine();
+        QFileInfo info = path;
+        ui.song_name->setText(info.baseName());
+        player->setMedia(QUrl::fromLocalFile(info.absoluteFilePath()));
+        player->play();
+    }
+}
 
 void main_window::openFile()
 {
@@ -38,6 +67,9 @@ void main_window::openFile()
         return;
 
     write_song_location(path);
+
+    QFileInfo info = path;
+    ui.listWidget->insertItem(0, info.baseName());
 
     /*QMediaContent song1(path);
     if (playlist->isEmpty())
@@ -86,13 +118,6 @@ void main_window::write_song_location(QString path)
     QTextStream stream(&songs_location);
     stream << path << "\n";
     songs_location.close();
-}
-
-void main_window::LineClicked(QModelIndex index)
-{
-    QString sir = index.data().toString();
-    ui.song_name->setText(sir);
-    player->setMedia(QUrl::fromLocalFile(sir));
 }
 
 void main_window::on_add_file_button_triggered()
@@ -159,4 +184,177 @@ void main_window::on_durationChanged(qint64 position)
 void main_window::on_exit_toolbar_triggered()
 {
 	QApplication::quit();
+}
+
+void main_window::on_listWidget_itemClicked(QListWidgetItem* item)
+{
+    ui.song_name->setText(item->text());
+    songs_location.setFileName("songs_location.txt");
+    songs_location.open(QIODevice::ReadOnly);
+    QTextStream in(&songs_location);
+    QString path;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.contains(item->text(), Qt::CaseSensitive))
+        {
+            path = line;
+        }
+    }
+    player->setMedia(QUrl::fromLocalFile(path));
+    player->play();
+}
+
+void main_window::on_next_button_clicked()
+{
+    QString current_song = ui.song_name->text();
+    songs_location.setFileName("songs_location.txt");
+    songs_location.open(QIODevice::ReadOnly);
+    QTextStream in(&songs_location);
+    int row = 0;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.contains(current_song, Qt::CaseSensitive))
+        {
+            row++;
+            break;
+        }
+        row++;
+    }
+    songs_location.seek(0);
+    row++;
+    QString path;
+    for (int i = 0; i < songs_location.size(); i++)
+    {
+        if (row == i)
+        {
+            path = in.readLine();
+        }
+    }
+    QFileInfo info = path;
+    ui.song_name->setText(info.baseName());
+    player->setMedia(QUrl::fromLocalFile(path));
+    player->play();
+}
+
+void main_window::on_previous_button_clicked()
+{
+    QString current_song = ui.song_name->text();
+    songs_location.setFileName("songs_location.txt");
+    songs_location.open(QIODevice::ReadOnly);
+    QTextStream in(&songs_location);
+    int linii = 0, row = 0;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.contains(current_song, Qt::CaseSensitive))
+        {
+            break;
+        }
+        linii++;
+    }
+    in.seek(0);
+    QString path;
+    for (int i = 0; i < songs_location.size(); i++)
+    {
+        QString line = in.readLine();
+        if ((linii - 1) == i)
+        {
+            path = line;
+        }
+        /*else if ((linii - 1) < 0)
+        {
+            path = in.readLine();
+        }*/
+    }
+    QFileInfo info = path;
+    ui.song_name->setText(info.baseName());
+    player->setMedia(QUrl::fromLocalFile(path));
+    player->play();
+}
+
+void main_window::on_next_toolbar_triggered()
+{
+    QString current_song = ui.song_name->text();
+    songs_location.setFileName("songs_location.txt");
+    songs_location.open(QIODevice::ReadOnly);
+    QTextStream in(&songs_location);
+    int row = 0;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.contains(current_song, Qt::CaseSensitive))
+        {
+            row++;
+            break;
+        }
+        row++;
+    }
+    songs_location.seek(0);
+    row++;
+    QString path;
+    for (int i = 0; i < songs_location.size(); i++)
+    {
+        if (row == i)
+        {
+            path = in.readLine();
+        }
+    }
+    QFileInfo info = path;
+    ui.song_name->setText(info.baseName());
+    player->setMedia(QUrl::fromLocalFile(path));
+    player->play();
+}
+
+void main_window::on_previous_toolbar_triggered()
+{
+    QString current_song = ui.song_name->text();
+    songs_location.setFileName("songs_location.txt");
+    songs_location.open(QIODevice::ReadOnly);
+    QTextStream in(&songs_location);
+    int linii = 0, row = 0;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.contains(current_song, Qt::CaseSensitive))
+        {
+            break;
+        }
+        linii++;
+    }
+    in.seek(0);
+    QString path;
+    for (int i = 0; i < songs_location.size(); i++)
+    {
+        QString line = in.readLine();
+        if ((linii - 1) == i)
+        {
+            path = line;
+        }
+        /*else if ((linii - 1) < 0)
+        {
+            path = in.readLine();
+        }*/
+    }
+    QFileInfo info = path;
+    ui.song_name->setText(info.baseName());
+    player->setMedia(QUrl::fromLocalFile(path));
+    player->play();
+}
+
+void main_window::on_repeat_toolbar_triggered()
+{
+    check_repeat();
+}
+
+void main_window::check_repeat()
+{
+    if (QMediaPlayer::EndOfMedia == player->state())
+    {
+        if (ui.repeat_toolbar->isChecked())
+        {
+            player->setPosition(0);
+        }
+    }
 }

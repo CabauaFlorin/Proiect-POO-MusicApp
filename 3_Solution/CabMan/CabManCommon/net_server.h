@@ -4,6 +4,7 @@
 #include "net_tsqueue.h"
 #include "net_message.h"
 #include "net_connection.h"
+#include "net_dbconnector.h"
 
 namespace olc
 {
@@ -65,6 +66,46 @@ namespace olc
 				std::cout << "[SERVER] Stopped!\n";
 			}
 
+			bool ConnectServerToDatabase()
+			{
+				bool allGood = false;
+				if (m_dbconnector.OnAttemptToConnect())
+				{
+					std::cout << "[SERVER]: Connected to SQL Server Database!\n";
+					allGood = true;
+				}
+				else
+				{
+					std::cout << "[SERVER]: Couldn't connect to SQL Server Database! Error.\n";
+					allGood = false;
+				}
+				return allGood;
+			}
+
+			void ExecuteQuery(const std::string& query)
+			{
+				if (ConnectServerToDatabase())
+				{
+					m_dbconnector.ExecuteQuery(query);
+				}
+				else
+				{
+					std::cout << "[SERVER]: Query error! Couldn't do it to the database.";
+				}
+			}
+			std::string GetResultFromQueryExecuted(const std::string& query, int columnIndex = 1)
+			{
+				std::string result = "";
+				if (ConnectServerToDatabase())
+				{
+					result = m_dbconnector.GetResultFromExecuteQuery(query, columnIndex);
+				}
+				else
+				{
+					std::cout << "[SERVER]: Query error! Couldn't do it to the database.";
+				}
+				return result;
+			}
 			// ASYNC - Instruct asio to wait for connection
 			void WaitForClientConnection()
 			{
@@ -119,6 +160,58 @@ namespace olc
 					});
 			}
 
+			std::string convertCharToVarcharSQL(char param[])
+			{
+				std::string converted;
+				converted = "'";
+				converted += param;
+				converted += "'";
+				return converted;
+			}
+
+			bool OnLoginRequest(char username[], char password[])
+			{
+				std::string usernameVchar = convertCharToVarcharSQL(username);
+				std::string passwordVchar = convertCharToVarcharSQL(password);
+
+				std::string query = "IF EXISTS(SELECT 1 FROM CabManDB.dbo.Clienti WHERE Username = " + usernameVchar +" AND Parola = " + passwordVchar +" ) SELECT 1 ELSE SELECT 0";
+				std::string result = GetResultFromQueryExecuted(query);
+				if (result == "0")
+				{
+					return false;
+				}
+				return true;
+			}
+
+			bool checkUserExists(char mail[], char username[])
+			{
+				std::string mailVchar = convertCharToVarcharSQL(mail);
+				std::string usernameVchar = convertCharToVarcharSQL(username);
+
+				std::string query = "IF EXISTS(SELECT 1 FROM CabManDB.dbo.Clienti WHERE Username = " + usernameVchar + " OR Email = " + mailVchar + " ) SELECT 1 ELSE SELECT 0";
+				std::string result = GetResultFromQueryExecuted(query);
+				if (result == "0")
+				{
+					return false;
+				}
+				return true;
+			}
+
+			int OnRegisterRequest(char mail[], char username[], char password[])
+			{
+				std::string mailVchar = convertCharToVarcharSQL(mail);
+				std::string usernameVchar = convertCharToVarcharSQL(username);
+				std::string passwordVchar = convertCharToVarcharSQL(password);
+
+				if (checkUserExists(mail, username))
+				{
+					return -1;
+				}
+				std::string query = "INSERT INTO CabManDB.dbo.Clienti (Email, Username,  Parola) VALUES ( " + mailVchar + ", " + usernameVchar + ", " + passwordVchar + ")";
+				ExecuteQuery(query);
+				return 0;
+			}
+
 			// Send a message to a specific client
 			void MessageClient(std::shared_ptr<connection<T>> client, const message<T>& msg)
 			{
@@ -143,7 +236,6 @@ namespace olc
 						std::remove(m_deqConnections.begin(), m_deqConnections.end(), client), m_deqConnections.end());
 				}
 			}
-
 			// Send message to all clients
 			void MessageAllClients(const message<T>& msg, std::shared_ptr<connection<T>> pIgnoreClient = nullptr)
 			{
@@ -237,6 +329,9 @@ namespace olc
 
 			// Clients will be identified in the "wider system" via an ID
 			uint32_t nIDCounter = 10000;
+
+			// dbconnector object encapsulated for connection to DB.
+			net::dbconnector<T> m_dbconnector;
 		};
 	}
 }
