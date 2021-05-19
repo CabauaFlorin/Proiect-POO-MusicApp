@@ -30,7 +30,6 @@ private:
 	bool muted = false;
 	void openFile();
 	void write_song_location(QString path);
-	void check_repeat();
 
 private slots:
 	void on_volume_slider_sliderMoved(int position);
@@ -49,7 +48,7 @@ private slots:
 	void on_previous_button_clicked();
 	void on_next_toolbar_triggered();
 	void on_previous_toolbar_triggered();
-	void on_repeat_toolbar_triggered();
-
-	void stopped();
+	void repeat();
+	void aleatory();
+	
 };

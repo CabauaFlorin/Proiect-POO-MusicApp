@@ -11,31 +11,31 @@ CabManClient::CabManClient(QWidget *parent)
     ui.setupUi(this);
 }
 
-void CabManClient::on_ping_button_clicked()
-{
-    ClientBackend& cb = ClientBackend::getInstance();
-    cb.Incoming().clear();
-    cb.PingServer();
-
-    while (cb.Incoming().empty())
-    {
-        // wait;
-    }
-
-    if (!cb.Incoming().empty())
-    {
-        auto msg = cb.Incoming().pop_front().msg;
-        if (msg.header.id == olc::net::CustomMsgTypes::ServerPing)
-        {
-            std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-            std::chrono::system_clock::time_point timeThen;
-            msg >> timeThen;
-            std::chrono::duration<double> duration(timeNow - timeThen);
-            std::string pinging = std::to_string(duration.count());
-            ui.ping_edit->setText(QString(pinging.c_str()));
-        }
-    }
-}
+//void CabManClient::on_ping_button_clicked()
+//{
+//    ClientBackend& cb = ClientBackend::getInstance();
+//    cb.Incoming().clear();
+//    cb.PingServer();
+//
+//    while (cb.Incoming().empty())
+//    {
+//        // wait;
+//    }
+//
+//    if (!cb.Incoming().empty())
+//    {
+//        auto msg = cb.Incoming().pop_front().msg;
+//        if (msg.header.id == olc::net::CustomMsgTypes::ServerPing)
+//        {
+//            std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+//            std::chrono::system_clock::time_point timeThen;
+//            msg >> timeThen;
+//            std::chrono::duration<double> duration(timeNow - timeThen);
+//            std::string pinging = std::to_string(duration.count());
+//            ui.ping_edit->setText(QString(pinging.c_str()));
+//        }
+//    }
+//}
 
 void CabManClient::on_login_button_clicked()
 {
@@ -45,7 +45,7 @@ void CabManClient::on_login_button_clicked()
 
     if (username == "" || password == "")
     {
-        msgBox->setText("Please fill all the boxes!");
+        msgBox->setText("Va rugam sa completati toate datele!");
         msgBox->show();
         QTimer::singleShot(2500, msgBox, SLOT(close()));
     }

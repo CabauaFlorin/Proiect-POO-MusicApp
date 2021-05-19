@@ -16,6 +16,6 @@ private:
     main_window* main_menu;
 
 private slots:
-    void on_ping_button_clicked();
+    //void on_ping_button_clicked();
     void on_login_button_clicked();
 };
