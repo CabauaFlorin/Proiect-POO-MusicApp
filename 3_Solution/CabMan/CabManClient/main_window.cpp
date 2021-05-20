@@ -69,14 +69,16 @@ void main_window::aleatory()
     {
         songs_location.setFileName("songs_location.txt");
         songs_location.open(QIODevice::ReadOnly);
-        srand(time(NULL));
+        srand(time(0));
         int row = (rand() % (songs_location.size()));
+        int linii = 0;
         songs_location.seek(0);
-        for (int i = 0; i < songs_location.size(); i++)
+        while (songs_location.atEnd())
         {
-            QString line = songs_location.readLine();
-            if (i == 3)
+            linii++;
+            if (linii == row)
             {
+                QString line = songs_location.readLine();
                 player->setMedia(QUrl::fromLocalFile(line));
                 player->play();
             }

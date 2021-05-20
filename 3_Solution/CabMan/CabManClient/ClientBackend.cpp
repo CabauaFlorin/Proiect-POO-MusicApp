@@ -11,7 +11,7 @@ ClientBackend& ClientBackend::getInstance()
 		instance = new ClientBackend();
 		if (!instance->IsConnected())
 		{
-			instance->Connect("2.tcp.ngrok.io", 18931);
+			instance->Connect("4.tcp.ngrok.io", 16643);
 		}
 	}
 	return *instance;
